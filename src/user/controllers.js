@@ -26,8 +26,21 @@ const getAllUsers = async (req, res) => {
     }
 };
 
+const login = async (req, res) => {
+    try {
+        const user = await User.findOne({
+            username: req.body.username,
+            password: req.body.password,
+        });
+        res.status(201).json({message: "logged in", user: user})
+    } catch (error) {
+        res.status(500).json({ message: error.message, error: error });
+    }
+};
+
 
 module.exports = {
     addUser: addUser,
     getAllUsers: getAllUsers,
+    login: login,
 };
