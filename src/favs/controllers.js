@@ -4,7 +4,7 @@ const { get } = require("./routes");
 const addFav = async (req, res) => {
     try {
         const fav = await Favs.create({
-            id_photo: req.body.id,
+            id_photo: req.body.id_photo,
             UserId: req.body.UserId,
             url: req.body.url,
         });
