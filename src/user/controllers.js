@@ -1,3 +1,4 @@
+const Favs = require("../favs/model");
 const User = require("./model");
 const { get } = require("./routes");
 
@@ -29,8 +30,10 @@ const getAllUsers = async (req, res) => {
 const login = async (req, res) => {
     try {
         const user = await User.findOne({
-            username: req.body.username,
-            password: req.body.password,
+            where: {
+                username: req.body.username,
+            },
+            include: Favs,
         });
         res.status(201).json({message: "logged in", user: user})
     } catch (error) {

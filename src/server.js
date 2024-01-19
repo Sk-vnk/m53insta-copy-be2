@@ -16,8 +16,14 @@ app.use(cors());
 app.use(express.json());
 app.use(userRouter);
 
+
+
 const syncTables = async () => {
+    await User.hasMany(Favs);
+    await Favs.belongsToMany(User, {through: "userFavs"});
+
     await User.sync();
+    await Favs.sync({alter:true});
 };
 
 app.get("/health", (req, res) => {
